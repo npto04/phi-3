@@ -1,0 +1,10 @@
+--index-url https://download.pytorch.org/whl/cu121
+torch
+torchvision
+torchaudio
+accelerate
+transformers
+jupyter
+flash-attn
+ninja
+langchain
