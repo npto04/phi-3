@@ -1,4 +1,4 @@
-# Assessing with LLM with LangChain
+# Assessing LLM with LangChain
 ## Running the notebook examples
 The notebook examples are available in the `notebooks` folder. To run the examples, you need to have the following dependencies installed:
 - Python 3.10 or higher
