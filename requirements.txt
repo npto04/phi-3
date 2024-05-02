@@ -8,3 +8,5 @@ jupyter
 flash-attn
 ninja
 langchain
+python-dotenv
+fastapi

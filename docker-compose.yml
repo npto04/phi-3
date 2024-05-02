@@ -1,0 +1,50 @@
+services:
+  jupyter-notebook:
+    build: .
+    ports:
+      - "8888:8888"
+    restart: "no"
+    links:
+      - ollama
+
+  ollama:
+    image: "ollama/ollama:latest"
+    tty: true
+    restart: "no"
+    environment:
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL-http://host.docker.internal:11434}
+    ports:
+      - "11434:11434"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
+    volumes:
+      - ollama:/root/.ollama
+
+  chatbot_api:
+    build:
+      context: ./chatbot_api
+    env_file:
+      - .env
+    depends_on:
+      - ollama
+    ports:
+      - "8000:8000"
+
+
+  chatbot_frontend:
+    build:
+      context: ./chatbot_frontend
+    env_file:
+      - .env
+    depends_on:
+      - chatbot_api
+    ports:
+      - "8501:8501"
+
+volumes:
+  ollama:
